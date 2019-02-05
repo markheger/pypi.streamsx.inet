@@ -20,13 +20,13 @@ make html
 ```
 and viewed using
 ```
-firefox python/package/docs/build/html/index.html
+firefox package/docs/build/html/index.html
 ```
 
 The documentation is also setup at `readthedocs.io`.
 
 Documentation links:
-* http://streamsxinet.readthedocs.io/en/pypackage
+* http://streamsxinet.readthedocs.io/
 
 ## Test
 

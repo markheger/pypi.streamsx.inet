@@ -13,7 +13,7 @@ setup(
   url = 'https://github.com/IBMStreams/streamsx.inet',
   keywords = ['streams', 'ibmstreams', 'streaming', 'analytics', 'streaming-analytics', 'http', 'inet'],
   classifiers = [
-    'Development Status :: 1 - Planning',
+    'Development Status :: 5 - Production/Stable',
     'License :: OSI Approved :: Apache Software License',
     'Programming Language :: Python :: 3',
     'Programming Language :: Python :: 3.5',

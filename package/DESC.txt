@@ -37,4 +37,4 @@ A simple example of a Streams application that emits http requests::
 Documentation
 =============
 
-* `streamsx.inet package documentation <http://streamsxinet.readthedocs.io/en/pypackage/>`_
+* `streamsx.inet package documentation <http://streamsxinet.readthedocs.io>`_
