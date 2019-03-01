@@ -28,20 +28,58 @@ The documentation is also setup at `readthedocs.io`.
 Documentation links:
 * http://streamsxinet.readthedocs.io/
 
+
 ## Test
 
+### Streaming Analytics service in IBM Cloud
+
 Package can be tested with TopologyTester using the [Streaming Analytics](https://www.ibm.com/cloud/streaming-analytics) service.
+
+Run the test with:
+
+    ant test-sas
+
+or
 
 ```
 cd package
 python3 -u -m unittest streamsx.inet.tests.test_inet.TestHTTPStreamingAnalytics
 ```
 
+#### Remote build
+
+For using the toolkit from the build service (**force_remote_build**) run the test with:
+
+Run the test with:
+
+    ant test-sas-remote
+
+or
+
+```
+cd package
+python3 -u -m unittest streamsx.inet.tests.test_inet.TestHTTPStreamingAnalyticsRemote
+```
+
+
+### Local Streams instance
+
 Package can be tested with TopologyTester using a local and running Streams domain.
 Make shure that the streams environment is set, the domain and instance is running and the environment variables:
 STREAMS_USERNAME
 STREAMS_PASSWORD
 are setup.
+
+Ensure that inet toolkit location is part of STREAMS_SPLPATH:
+
+    export STREAMS_SPLPATH=$STREAMS_INSTALL/toolkits/com.ibm.streamsx.inet
+
+
+Run the test with:
+
+    ant test
+
+or
 
 ```
 cd package

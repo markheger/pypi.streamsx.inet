@@ -105,10 +105,11 @@ class TestHTTP(TestCase):
 class TestHTTPDistributed(TestHTTP):
     def setUp(self):
         Tester.setup_distributed(self)
+        self.test_config[streamsx.topology.context.ConfigParams.SSL_VERIFY] = False
 
 class TestHTTPStreamingAnalytics(TestHTTP):
     def setUp(self):
-        Tester.setup_streaming_analytics(self, force_remote_build=True)
+        Tester.setup_streaming_analytics(self, force_remote_build=False)
 
     @classmethod
     def setUpClass(self):
@@ -116,4 +117,13 @@ class TestHTTPStreamingAnalytics(TestHTTP):
         connection = sr.StreamingAnalyticsConnection()
         service = connection.get_streaming_analytics()
         result = service.start_instance()
+
+class TestStreamingAnalyticsRemote(TestHTTPStreamingAnalytics):
+    def setUp(self):
+        Tester.setup_streaming_analytics(self, force_remote_build=True)
+
+    @classmethod
+    def setUpClass(self):
+        super().setUpClass()
+
 
