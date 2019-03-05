@@ -15,10 +15,6 @@ The following method types are supported:
  * POST
 
 
-This package is compatible with Streaming Analytics service on IBM Cloud:
-
-  * `IBM Streaming Analytics <https://www.ibm.com/cloud/streaming-analytics>`_
-
 Sample
 ++++++
 
@@ -42,6 +38,8 @@ A simple example of a Streams application that emits http requests::
     result_http_put.print()
 
     submit('STREAMING_ANALYTICS_SERVICE', topo)
+    # Use for IBM Streams including IBM Cloud Private for Data
+    # submit ('DISTRIBUTED', topo)
 
 
 Types
@@ -61,7 +59,7 @@ rstring responseData
 
 """
 
-__version__='1.0.0'
+__version__='1.0.1'
 
 __all__ = ['request_delete', 'request_get', 'request_post','request_put', 'HttpResponseSchema']
 from streamsx.inet._inet import request_delete, request_get, request_post, request_put, HttpResponseSchema

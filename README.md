@@ -18,6 +18,11 @@ Documentation is using Sphinx and can be built locally using:
 cd package/docs
 make html
 ```
+
+or
+
+    ant doc
+
 and viewed using
 ```
 firefox package/docs/build/html/index.html
@@ -28,12 +33,31 @@ The documentation is also setup at `readthedocs.io`.
 Documentation links:
 * http://streamsxinet.readthedocs.io/
 
+## Version update
+
+To change the version information of the Python package, edit following files:
+
+- ./package/docs/source/conf.py
+- ./package/streamsx/inet/\_\_init\_\_.py
+
+When the development status changes, edit the *classifiers* in
+
+- ./package/setup.py
+
+When the documented sample must be changed, change it here:
+
+- ./package/streamsx/inet/\_\_init\_\_.py
+- ./package/DESC.txt
 
 ## Test
 
 ### Streaming Analytics service in IBM Cloud
 
-Package can be tested with TopologyTester using the [Streaming Analytics](https://www.ibm.com/cloud/streaming-analytics) service.
+Package can be tested with TopologyTester using a local toolkit and launch the job in [Streaming Analytics](https://www.ibm.com/cloud/streaming-analytics) service.
+
+Ensure that inet toolkit location is part of STREAMS_SPLPATH:
+
+    export STREAMS_SPLPATH=$STREAMS_INSTALL/toolkits/com.ibm.streamsx.inet
 
 Run the test with:
 

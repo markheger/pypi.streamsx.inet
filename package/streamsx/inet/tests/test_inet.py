@@ -118,7 +118,7 @@ class TestHTTPStreamingAnalytics(TestHTTP):
         service = connection.get_streaming_analytics()
         result = service.start_instance()
 
-class TestStreamingAnalyticsRemote(TestHTTPStreamingAnalytics):
+class TestHTTPStreamingAnalyticsRemote(TestHTTPStreamingAnalytics):
     def setUp(self):
         Tester.setup_streaming_analytics(self, force_remote_build=True)
 
