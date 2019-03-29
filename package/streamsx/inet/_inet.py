@@ -18,13 +18,13 @@ HttpResponseSchema = StreamSchema('tuple<rstring status, int32 statusCode, rstri
 """
 
 
-def request_delete(stream, url=None, url_attribute=None, ssl_accept_all_certificates=False, name=None):
+def request_delete(stream, url=None, url_attribute=None, extra_header_attribute=None, ssl_accept_all_certificates=False, name=None):
     """Issues a HTTP DELETE request. You can specifiy the URL either dynamic (part of input stream) or static (as parameter).
 
     Example with URL as part of the input stream of type ``CommonSchema.String``. The parameters ``url`` and ``url_attribute`` can be omitted in this case::
 
         import streamsx.inet as inet
-        
+
         s = topo.source(['http://httpbin.org/delete']).as_string()
         result_http_del = inet.request_delete(s)
         result_http_del.print()
@@ -33,6 +33,7 @@ def request_delete(stream, url=None, url_attribute=None, ssl_accept_all_certific
         stream(Stream): Stream of tuples containing the HTTP request url. Supports ``streamsx.topology.schema.StreamSchema`` (schema for a structured stream) or ``CommonSchema.String`` as input.
         url(str): String containing the URL to send HTTP requests to.
         url_attribute(str): Attribute name of the input stream containing the URL to send HTTP requests to. Use this as alternative to the 'url' parameter.
+        extra_header_attribute(str): Attribute name of the input stream containing one extra header to send with the request, the attribute must contain a string in the form Header-Name: value. If the attribute value is an empty string, no additional header is send.
         ssl_accept_all_certificates(bool): Accept all SSL certificates, even those that are self-signed. Setting this option will allow potentially insecure connections. Default is false.
         name(str): Sink name in the Streams context, defaults to a generated name.
 
@@ -60,17 +61,19 @@ def request_delete(stream, url=None, url_attribute=None, ssl_accept_all_certific
     _op.params['outputContentType'] = 'contentType'
     _op.params['outputHeader'] = 'responseHeader'
     _op.params['sslAcceptAllCertificates'] = ssl_accept_all_certificates
+    if extra_header_attribute is not None:
+        _op.params['extraHeaderAttribute'] = _op.attribute(stream, extra_header_attribute)
 
     return _op.outputs[0]
 
 
-def request_get(stream, url=None, url_attribute=None, ssl_accept_all_certificates=False, name=None):
+def request_get(stream, url=None, url_attribute=None, extra_header_attribute=None, ssl_accept_all_certificates=False, name=None):
     """Issues a HTTP GET request. You can specifiy the URL either dynamic (part of input stream) or static (as parameter).
 
     Example with URL as part of the input stream of type ``CommonSchema.String``. The parameters ``url`` and ``url_attribute`` can be omitted in this case::
 
         import streamsx.inet as inet
-        
+
         s = topo.source(['http://httpbin.org/get']).as_string()
         result_http_get = inet.request_get(s)
         result_http_get.print()
@@ -79,6 +82,7 @@ def request_get(stream, url=None, url_attribute=None, ssl_accept_all_certificate
         stream(Stream): Stream of tuples containing the HTTP request url. Supports ``streamsx.topology.schema.StreamSchema`` (schema for a structured stream) or ``CommonSchema.String`` as input.
         url(str): String containing the URL to send HTTP requests to.
         url_attribute(str): Attribute name of the input stream containing the URL to send HTTP requests to. Use this as alternative to the 'url' parameter.
+        extra_header_attribute(str): Attribute name of the input stream containing one extra header to send with the request, the attribute must contain a string in the form Header-Name: value. If the attribute value is an empty string, no additional header is send.
         ssl_accept_all_certificates(bool): Accept all SSL certificates, even those that are self-signed. Setting this option will allow potentially insecure connections. Default is false.
         name(str): Sink name in the Streams context, defaults to a generated name.
 
@@ -106,17 +110,19 @@ def request_get(stream, url=None, url_attribute=None, ssl_accept_all_certificate
     _op.params['outputContentType'] = 'contentType'
     _op.params['outputHeader'] = 'responseHeader'
     _op.params['sslAcceptAllCertificates'] = ssl_accept_all_certificates
+    if extra_header_attribute is not None:
+        _op.params['extraHeaderAttribute'] = _op.attribute(stream, extra_header_attribute)
 
     return _op.outputs[0]
 
 
-def request_post(stream, url=None, url_attribute=None, body_attribute=None, content_type=None, content_type_attribute=None, ssl_accept_all_certificates=False, name=None):
+def request_post(stream, url=None, url_attribute=None, body_attribute=None, content_type=None, content_type_attribute=None, extra_header_attribute=None, ssl_accept_all_certificates=False, name=None):
     """Issues a HTTP POST request. You can specifiy the URL either dynamic (part of input stream) or static (as parameter).
 
     Example with URL as part of the input stream of type ``CommonSchema.String``. The parameters ``url`` and ``url_attribute`` can be omitted in this case::
 
         import streamsx.inet as inet
-        
+
         s = topo.source(['http://httpbin.org/post']).as_string()
         result_http_post = inet.request_post(s)
         result_http_post.print()
@@ -124,7 +130,7 @@ def request_post(stream, url=None, url_attribute=None, body_attribute=None, cont
     Example with URL as part of the input stream and content type as parameter::
 
         import streamsx.inet as inet
-        
+
         s = topo.source(['http://httpbin.org/post']).as_string()
         result_http_post = inet.request_post(s, content_type='application/x-www-form-urlencoded')
         result_http_post.print()
@@ -136,6 +142,7 @@ def request_post(stream, url=None, url_attribute=None, body_attribute=None, cont
         body_attribute(str): Request body attribute for POST method that accepts an entity.
         content_type(str): MIME content type of entity for POST requests. If not specified the default 'application/json' is used.
         content_type_attribute(str): Attribute name of the input stream containing the MIME content type. Use this as alternative to the 'content_type' parameter.
+        extra_header_attribute(str): Attribute name of the input stream containing one extra header to send with the request, the attribute must contain a string in the form Header-Name: value. If the attribute value is an empty string, no additional header is send.
         ssl_accept_all_certificates(bool): Accept all SSL certificates, even those that are self-signed. Setting this option will allow potentially insecure connections. Default is false.
         name(str): Sink name in the Streams context, defaults to a generated name.
 
@@ -173,17 +180,19 @@ def request_post(stream, url=None, url_attribute=None, body_attribute=None, cont
     _op.params['outputContentType'] = 'contentType'
     _op.params['outputHeader'] = 'responseHeader'
     _op.params['sslAcceptAllCertificates'] = ssl_accept_all_certificates
+    if extra_header_attribute is not None:
+        _op.params['extraHeaderAttribute'] = _op.attribute(stream, extra_header_attribute)
 
     return _op.outputs[0]
 
 
-def request_put(stream, url=None, url_attribute=None, body_attribute=None, content_type=None, content_type_attribute=None, ssl_accept_all_certificates=False, name=None):
+def request_put(stream, url=None, url_attribute=None, body_attribute=None, content_type=None, content_type_attribute=None, extra_header_attribute=None, ssl_accept_all_certificates=False, name=None):
     """Issues a HTTP PUT request. You can specifiy the URL either dynamic (part of input stream) or static (as parameter).
 
     Example with parameters ``url``, ``content_type`` and input stream containing the request body::
 
         import streamsx.inet as inet
-        
+
         s = topo.source(['hello world']).as_string()
         result_http_put = inet.request_put(s, url='http://httpbin.org/put', content_type='text/plain')
         result_http_put.print()
@@ -195,6 +204,7 @@ def request_put(stream, url=None, url_attribute=None, body_attribute=None, conte
         body_attribute(str): Request body attribute for PUT method that accepts an entity.
         content_type(str): MIME content type of entity for PUT requests. If not specified the default 'application/json' is used.
         content_type_attribute(str): Attribute name of the input stream containing the MIME content type. Use this as alternative to the 'content_type' parameter.
+        extra_header_attribute(str): Attribute name of the input stream containing one extra header to send with the request, the attribute must contain a string in the form Header-Name: value. If the attribute value is an empty string, no additional header is send.
         ssl_accept_all_certificates(bool): Accept all SSL certificates, even those that are self-signed. Setting this option will allow potentially insecure connections. Default is false.
         name(str): Sink name in the Streams context, defaults to a generated name.
 
@@ -236,6 +246,8 @@ def request_put(stream, url=None, url_attribute=None, body_attribute=None, conte
     _op.params['outputContentType'] = 'contentType'
     _op.params['outputHeader'] = 'responseHeader'
     _op.params['sslAcceptAllCertificates'] = ssl_accept_all_certificates
+    if extra_header_attribute is not None:
+        _op.params['extraHeaderAttribute'] = _op.attribute(stream, extra_header_attribute)
 
     return _op.outputs[0]
 
@@ -328,4 +340,3 @@ class _HTTPRequest(streamsx.spl.op.Invoke):
             params['userAgent'] = userAgent
 
         super(_HTTPRequest, self).__init__(topology,kind,inputs,schema,params,name)
-

@@ -47,10 +47,11 @@ class TestHTTP(TestCase):
     def test_request_get_url_in_input_stream(self):
         topo = Topology('test_request_get_url_in_input_stream')
 
-        pulse = op.Source(topo, "spl.utility::Beacon", 'tuple<rstring url>', params = {'iterations':1})
+        pulse = op.Source(topo, "spl.utility::Beacon", 'tuple<rstring url, rstring header>', params = {'iterations':1})
         pulse.url = pulse.output('"http://httpbin.org/get"')
+        pulse.header = pulse.output('"myheader: myvalue"')
 
-        res_http = inet.request_get(pulse.stream, url_attribute='url', ssl_accept_all_certificates=True)
+        res_http = inet.request_get(pulse.stream, url_attribute='url', extra_header_attribute='header', ssl_accept_all_certificates=True)
         res_http.print()
 
         tester = Tester(topo)
@@ -125,5 +126,3 @@ class TestHTTPStreamingAnalyticsRemote(TestHTTPStreamingAnalytics):
     @classmethod
     def setUpClass(self):
         super().setUpClass()
-
-

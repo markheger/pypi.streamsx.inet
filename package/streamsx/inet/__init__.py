@@ -59,7 +59,7 @@ rstring responseData
 
 """
 
-__version__='1.0.1'
+__version__='1.1.0'
 
 __all__ = ['request_delete', 'request_get', 'request_post','request_put', 'HttpResponseSchema']
 from streamsx.inet._inet import request_delete, request_get, request_post, request_put, HttpResponseSchema
