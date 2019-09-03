@@ -38,7 +38,7 @@ A simple example of a Streams application that emits http requests::
     result_http_put.print()
 
     submit('STREAMING_ANALYTICS_SERVICE', topo)
-    # Use for IBM Streams including IBM Cloud Private for Data
+    # Use for IBM Streams including IBM Cloud Pak for Data
     # submit ('DISTRIBUTED', topo)
 
 
@@ -59,7 +59,7 @@ rstring responseData
 
 """
 
-__version__='1.1.0'
+__version__='1.2.0'
 
-__all__ = ['request_delete', 'request_get', 'request_post','request_put', 'HttpResponseSchema']
-from streamsx.inet._inet import request_delete, request_get, request_post, request_put, HttpResponseSchema
+__all__ = ['download_toolkit', 'request_delete', 'request_get', 'request_post','request_put', 'HttpResponseSchema']
+from streamsx.inet._inet import download_toolkit, request_delete, request_get, request_post, request_put, HttpResponseSchema

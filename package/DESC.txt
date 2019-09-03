@@ -4,7 +4,7 @@ Overview
 Provides functions to run HTTP requests.
 
 This package exposes the `com.ibm.streamsx.inet <https://ibmstreams.github.io/streamsx.inet/>`_ toolkit as Python methods for use with Streaming Analytics service on
-IBM Cloud and IBM Streams including IBM Cloud Private for Data.
+IBM Cloud and IBM Streams including IBM Cloud Pak for Data.
 
 * `Streaming Analytics service <https://console.ng.bluemix.net/catalog/services/streaming-analytics>`_
 * `IBM Streams developer community <https://developer.ibm.com/streamsdev/>`_
@@ -33,7 +33,7 @@ A simple example of a Streams application that emits http requests::
     result_http_put.print()
 
     submit('STREAMING_ANALYTICS_SERVICE', topo)
-    # Use for IBM Streams including IBM Cloud Private for Data
+    # Use for IBM Streams including IBM Cloud Pak for Data
     # submit ('DISTRIBUTED', topo)
 
 

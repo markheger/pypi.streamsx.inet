@@ -9,6 +9,9 @@ import streamsx.spl.types
 from streamsx.topology.schema import CommonSchema, StreamSchema
 from streamsx.spl.types import rstring
 
+from streamsx.toolkits import download_toolkit
+
+_TOOLKIT_NAME = 'com.ibm.streamsx.inet'
 
 
 HttpResponseSchema = StreamSchema('tuple<rstring status, int32 statusCode, rstring contentEncoding, rstring contentType, list<rstring> responseHeader, rstring responseData>')
@@ -16,6 +19,41 @@ HttpResponseSchema = StreamSchema('tuple<rstring status, int32 statusCode, rstri
 
 ``'tuple<rstring status, int32 statusCode, rstring contentEncoding, rstring contentType, list<rstring> responseHeader, rstring responseData>'``
 """
+
+
+def download_toolkit(url=None, target_dir=None):
+    r"""Downloads the latest Inet toolkit from GitHub.
+
+    Example for updating the Inet toolkit for your topology with the latest toolkit from GitHub::
+
+        import streamsx.inet as inet
+        # download Avro toolkit from GitHub
+        inet_toolkit_location = inet.download_toolkit()
+        # add the toolkit to topology
+        streamsx.spl.toolkit.add_toolkit(topology, inet_toolkit_location)
+
+    Example for updating the topology with a specific version of the Inet toolkit using a URL::
+
+        import streamsx.inet as inet
+        url310 = 'https://github.com/IBMStreams/streamsx.inet/releases/download/v3.1.0/streamsx.inet.toolkit-3.1.0-el6-amd64-70c49d5-20190320-1318.tgz'
+        inet_toolkit_location = inet.download_toolkit(url=url310)
+        streamsx.spl.toolkit.add_toolkit(topology, inet_toolkit_location)
+
+    Args:
+        url(str): Link to toolkit archive (\*.tgz) to be downloaded. Use this parameter to 
+            download a specific version of the toolkit.
+        target_dir(str): the directory where the toolkit is unpacked to. If a relative path is given,
+            the path is appended to the system temporary directory, for example to /tmp on Unix/Linux systems.
+            If target_dir is ``None`` a location relative to the system temporary directory is chosen.
+
+    Returns:
+        str: the location of the downloaded Avro toolkit
+
+    .. note:: This function requires an outgoing Internet connection
+    .. versionadded:: 1.2
+    """
+    _toolkit_location = streamsx.toolkits.download_toolkit (toolkit_name=_TOOLKIT_NAME, url=url, target_dir=target_dir)
+    return _toolkit_location
 
 
 def request_delete(stream, url=None, url_attribute=None, extra_header_attribute=None, ssl_accept_all_certificates=False, name=None):
