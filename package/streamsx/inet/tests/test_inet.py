@@ -126,3 +126,20 @@ class TestHTTPStreamingAnalyticsRemote(TestHTTPStreamingAnalytics):
     @classmethod
     def setUpClass(self):
         super().setUpClass()
+
+
+class TestHTTPJSONInjection(TestCase):
+    
+    def _build_only(self, name, topo):
+        result = streamsx.topology.context.submit("TOOLKIT", topo.graph) # creates tk* directory
+        print(name + ' (TOOLKIT):' + str(result))
+        assert(result.return_code == 0)
+        result = streamsx.topology.context.submit("BUNDLE", topo.graph)  # creates sab file
+        print(name + ' (BUNDLE):' + str(result))
+        assert(result.return_code == 0)
+
+    def test_basic(self):
+        topo = Topology('test_basic')
+        res = inet.json_injection(topo)
+        res.print()
+        self._build_only('test_basic', topo)

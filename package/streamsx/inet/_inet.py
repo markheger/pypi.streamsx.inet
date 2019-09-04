@@ -56,6 +56,21 @@ def download_toolkit(url=None, target_dir=None):
     return _toolkit_location
 
 
+def json_injection(topology, port=8080, name=None):
+    """Receives an HTTP POST request.
+
+    Args:
+        topology: The Streams topology.
+        port: Port number for the embedded Jetty HTTP server, default: "8080". If the port is set to 0, the jetty server uses a free tcp port, and the metric serverPort delivers the actual value. 
+        name(str): Source name in the Streams context, defaults to a generated name.
+
+    Returns:
+        Output Stream with schema: CommonSchema.Json.
+    """
+    _op = _HTTPJSONInjection(topology, port=port, schema=CommonSchema.Json, name=name)
+    return _op.outputs[0]
+
+
 def request_delete(stream, url=None, url_attribute=None, extra_header_attribute=None, ssl_accept_all_certificates=False, name=None):
     """Issues a HTTP DELETE request. You can specifiy the URL either dynamic (part of input stream) or static (as parameter).
 
@@ -378,3 +393,36 @@ class _HTTPRequest(streamsx.spl.op.Invoke):
             params['userAgent'] = userAgent
 
         super(_HTTPRequest, self).__init__(topology,kind,inputs,schema,params,name)
+
+
+
+
+class _HTTPJSONInjection(streamsx.spl.op.Source):
+
+    def __init__(self, topology, schema=None, certificateAlias=None, context=None, contextResourceBase=None, keyPassword=None, keyStore=None, keyStorePassword=None, port=None, trustStore=None, trustStorePassword=None, vmArg=None, name=None):
+        topology = topology
+        kind="com.ibm.streamsx.inet.rest::HTTPJSONInjection"
+#        topology
+        params = dict()
+        if vmArg is not None:
+            params['vmArg'] = vmArg
+        if certificateAlias is not None:
+            params['certificateAlias'] = certificateAlias 
+        if context is not None:
+            params['context'] = context
+        if contextResourceBase is not None:
+            params['contextResourceBase'] = contextResourceBase
+        if keyPassword is not None:
+            params['keyPassword'] = keyPassword
+        if keyStore is not None:
+            params['keyStore'] = keyStore
+        if keyStorePassword is not None:
+            params['keyStorePassword'] = keyStorePassword
+        if port is not None:
+            params['port'] = port
+        if trustStore is not None:
+            params['trustStore'] = trustStore
+        if trustStorePassword is not None:
+            params['trustStorePassword'] = trustStorePassword
+
+        super(_HTTPJSONInjection, self).__init__(topology,kind,schema,params,name)
