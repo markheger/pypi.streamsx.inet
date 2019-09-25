@@ -378,3 +378,5 @@ class _HTTPRequest(streamsx.spl.op.Invoke):
             params['userAgent'] = userAgent
 
         super(_HTTPRequest, self).__init__(topology,kind,inputs,schema,params,name)
+
+
