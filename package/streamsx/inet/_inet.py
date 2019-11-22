@@ -27,7 +27,7 @@ def download_toolkit(url=None, target_dir=None):
     Example for updating the Inet toolkit for your topology with the latest toolkit from GitHub::
 
         import streamsx.inet as inet
-        # download Avro toolkit from GitHub
+        # download Inet toolkit from GitHub
         inet_toolkit_location = inet.download_toolkit()
         # add the toolkit to topology
         streamsx.spl.toolkit.add_toolkit(topology, inet_toolkit_location)
@@ -47,7 +47,7 @@ def download_toolkit(url=None, target_dir=None):
             If target_dir is ``None`` a location relative to the system temporary directory is chosen.
 
     Returns:
-        str: the location of the downloaded Avro toolkit
+        str: the location of the downloaded Inet toolkit
 
     .. note:: This function requires an outgoing Internet connection
     .. versionadded:: 1.2
