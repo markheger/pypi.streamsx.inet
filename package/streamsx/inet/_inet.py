@@ -27,7 +27,7 @@ def download_toolkit(url=None, target_dir=None):
     Example for updating the Inet toolkit for your topology with the latest toolkit from GitHub::
 
         import streamsx.inet as inet
-        # download Avro toolkit from GitHub
+        # download Inet toolkit from GitHub
         inet_toolkit_location = inet.download_toolkit()
         # add the toolkit to topology
         streamsx.spl.toolkit.add_toolkit(topology, inet_toolkit_location)
@@ -47,7 +47,7 @@ def download_toolkit(url=None, target_dir=None):
             If target_dir is ``None`` a location relative to the system temporary directory is chosen.
 
     Returns:
-        str: the location of the downloaded Avro toolkit
+        str: the location of the downloaded Inet toolkit
 
     .. note:: This function requires an outgoing Internet connection
     .. versionadded:: 1.2
@@ -57,7 +57,7 @@ def download_toolkit(url=None, target_dir=None):
 
 
 def request_delete(stream, url=None, url_attribute=None, extra_header_attribute=None, ssl_accept_all_certificates=False, name=None):
-    """Issues a HTTP DELETE request. You can specifiy the URL either dynamic (part of input stream) or static (as parameter).
+    """Issues HTTP DELETE requests. For each input tuple a DELETE request is issued and the response is on the returned stream. You can specifiy the URL either dynamic (part of input stream) or static (as parameter).
 
     Example with URL as part of the input stream of type ``CommonSchema.String``. The parameters ``url`` and ``url_attribute`` can be omitted in this case::
 
@@ -106,7 +106,7 @@ def request_delete(stream, url=None, url_attribute=None, extra_header_attribute=
 
 
 def request_get(stream, url=None, url_attribute=None, extra_header_attribute=None, ssl_accept_all_certificates=False, name=None):
-    """Issues a HTTP GET request. You can specifiy the URL either dynamic (part of input stream) or static (as parameter).
+    """Issues HTTP GET requests. For each input tuple a DELETE request is issued and the response is on the returned stream. You can specifiy the URL either dynamic (part of input stream) or static (as parameter).
 
     Example with URL as part of the input stream of type ``CommonSchema.String``. The parameters ``url`` and ``url_attribute`` can be omitted in this case::
 
@@ -155,7 +155,7 @@ def request_get(stream, url=None, url_attribute=None, extra_header_attribute=Non
 
 
 def request_post(stream, url=None, url_attribute=None, body_attribute=None, content_type=None, content_type_attribute=None, extra_header_attribute=None, ssl_accept_all_certificates=False, name=None):
-    """Issues a HTTP POST request. You can specifiy the URL either dynamic (part of input stream) or static (as parameter).
+    """Issues HTTP POST requests. For each input tuple a DELETE request is issued and the response is on the returned stream. You can specifiy the URL either dynamic (part of input stream) or static (as parameter).
 
     Example with URL as part of the input stream of type ``CommonSchema.String``. The parameters ``url`` and ``url_attribute`` can be omitted in this case::
 
@@ -225,7 +225,7 @@ def request_post(stream, url=None, url_attribute=None, body_attribute=None, cont
 
 
 def request_put(stream, url=None, url_attribute=None, body_attribute=None, content_type=None, content_type_attribute=None, extra_header_attribute=None, ssl_accept_all_certificates=False, name=None):
-    """Issues a HTTP PUT request. You can specifiy the URL either dynamic (part of input stream) or static (as parameter).
+    """Issues HTTP PUT requests. For each input tuple a DELETE request is issued and the response is on the returned stream. You can specifiy the URL either dynamic (part of input stream) or static (as parameter).
 
     Example with parameters ``url``, ``content_type`` and input stream containing the request body::
 
