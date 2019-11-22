@@ -57,7 +57,7 @@ def download_toolkit(url=None, target_dir=None):
 
 
 def request_delete(stream, url=None, url_attribute=None, extra_header_attribute=None, ssl_accept_all_certificates=False, name=None):
-    """Issues a HTTP DELETE request. You can specifiy the URL either dynamic (part of input stream) or static (as parameter).
+    """Issues HTTP DELETE requests. For each input tuple a DELETE request is issued and the response is on the returned stream. You can specifiy the URL either dynamic (part of input stream) or static (as parameter).
 
     Example with URL as part of the input stream of type ``CommonSchema.String``. The parameters ``url`` and ``url_attribute`` can be omitted in this case::
 
@@ -106,7 +106,7 @@ def request_delete(stream, url=None, url_attribute=None, extra_header_attribute=
 
 
 def request_get(stream, url=None, url_attribute=None, extra_header_attribute=None, ssl_accept_all_certificates=False, name=None):
-    """Issues a HTTP GET request. You can specifiy the URL either dynamic (part of input stream) or static (as parameter).
+    """Issues HTTP GET requests. For each input tuple a DELETE request is issued and the response is on the returned stream. You can specifiy the URL either dynamic (part of input stream) or static (as parameter).
 
     Example with URL as part of the input stream of type ``CommonSchema.String``. The parameters ``url`` and ``url_attribute`` can be omitted in this case::
 
@@ -155,7 +155,7 @@ def request_get(stream, url=None, url_attribute=None, extra_header_attribute=Non
 
 
 def request_post(stream, url=None, url_attribute=None, body_attribute=None, content_type=None, content_type_attribute=None, extra_header_attribute=None, ssl_accept_all_certificates=False, name=None):
-    """Issues a HTTP POST request. You can specifiy the URL either dynamic (part of input stream) or static (as parameter).
+    """Issues HTTP POST requests. For each input tuple a DELETE request is issued and the response is on the returned stream. You can specifiy the URL either dynamic (part of input stream) or static (as parameter).
 
     Example with URL as part of the input stream of type ``CommonSchema.String``. The parameters ``url`` and ``url_attribute`` can be omitted in this case::
 
@@ -225,7 +225,7 @@ def request_post(stream, url=None, url_attribute=None, body_attribute=None, cont
 
 
 def request_put(stream, url=None, url_attribute=None, body_attribute=None, content_type=None, content_type_attribute=None, extra_header_attribute=None, ssl_accept_all_certificates=False, name=None):
-    """Issues a HTTP PUT request. You can specifiy the URL either dynamic (part of input stream) or static (as parameter).
+    """Issues HTTP PUT requests. For each input tuple a DELETE request is issued and the response is on the returned stream. You can specifiy the URL either dynamic (part of input stream) or static (as parameter).
 
     Example with parameters ``url``, ``content_type`` and input stream containing the request body::
 
