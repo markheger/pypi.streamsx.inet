@@ -59,7 +59,7 @@ rstring responseData
 
 """
 
-__version__='1.4.1'
+__version__='1.4.2'
 
 __all__ = ['download_toolkit', 'request_delete', 'request_get', 'request_post','request_put', 'HttpResponseSchema']
 from streamsx.inet._inet import download_toolkit, request_delete, request_get, request_post, request_put, HttpResponseSchema
