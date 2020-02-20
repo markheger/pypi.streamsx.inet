@@ -99,7 +99,7 @@ Ensure that inet toolkit location is part of STREAMS_SPLPATH:
     export STREAMS_SPLPATH=$STREAMS_INSTALL/toolkits/com.ibm.streamsx.inet
 
 
-Run the test with:
+Run the standalone test with:
 
     ant test
 
@@ -107,5 +107,13 @@ or
 
 ```
 cd package
+python3 -u -m unittest streamsx.inet.tests.test_inet.TestHTTP
+```
+
+Run the distributed test with:
+
+```
+cd package
 python3 -u -m unittest streamsx.inet.tests.test_inet.TestHTTPDistributed
 ```
+

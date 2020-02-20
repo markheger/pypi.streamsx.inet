@@ -21,6 +21,9 @@ import json
 
 class TestHTTP(TestCase):
 
+    def setUp(self):
+        Tester.setup_standalone(self)
+
     def test_request_get_fixed_url(self):
         topo = Topology('test_request_get_fixed_url')
 
@@ -30,7 +33,7 @@ class TestHTTP(TestCase):
         res_http.print()
         tester = Tester(topo)
         tester.tuple_count(res_http, 1)
-        tester.run_for(60)
+        #tester.run_for(60)
         tester.test(self.test_ctxtype, self.test_config, always_collect_logs=True)
 
     def test_request_get_url_in_input_stream_string_type(self):
@@ -41,7 +44,7 @@ class TestHTTP(TestCase):
         res_http.print()
         tester = Tester(topo)
         tester.tuple_count(res_http, 1)
-        tester.run_for(60)
+        #tester.run_for(60)
         tester.test(self.test_ctxtype, self.test_config, always_collect_logs=True)
 
     def test_request_get_url_in_input_stream(self):
@@ -56,7 +59,7 @@ class TestHTTP(TestCase):
 
         tester = Tester(topo)
         tester.tuple_count(res_http, 1)
-        tester.run_for(60)
+        #tester.run_for(60)
         tester.test(self.test_ctxtype, self.test_config, always_collect_logs=True)
 
     def test_request_delete_url_in_input_stream_string_type(self):
@@ -67,7 +70,7 @@ class TestHTTP(TestCase):
         res_http.print()
         tester = Tester(topo)
         tester.tuple_count(res_http, 1)
-        tester.run_for(60)
+        #tester.run_for(60)
         tester.test(self.test_ctxtype, self.test_config, always_collect_logs=True)
 
     def test_request_post_url_in_input_stream_string_type(self):
@@ -78,7 +81,7 @@ class TestHTTP(TestCase):
         res_http.print()
         tester = Tester(topo)
         tester.tuple_count(res_http, 1)
-        tester.run_for(60)
+        #tester.run_for(60)
         tester.test(self.test_ctxtype, self.test_config, always_collect_logs=True)
 
     def test_request_post_url_in_input_stream_string_type_content_type_param(self):
@@ -89,7 +92,7 @@ class TestHTTP(TestCase):
         res_http.print()
         tester = Tester(topo)
         tester.tuple_count(res_http, 1)
-        tester.run_for(60)
+        #tester.run_for(60)
         tester.test(self.test_ctxtype, self.test_config, always_collect_logs=True)
 
     def test_request_put_with_url_contt_params_body_in_input_stream_string_type(self):
@@ -100,7 +103,7 @@ class TestHTTP(TestCase):
         result_http_put.print()
         tester = Tester(topo)
         tester.tuple_count(result_http_put, 1)
-        tester.run_for(60)
+        #tester.run_for(60)
         tester.test(self.test_ctxtype, self.test_config, always_collect_logs=True)
 
 class TestHTTPDistributed(TestHTTP):
