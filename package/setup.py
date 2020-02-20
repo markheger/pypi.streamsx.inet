@@ -5,7 +5,7 @@ setup(
   packages = ['streamsx.inet'],
   include_package_data=True,
   version = streamsx.inet.__version__,
-  description = 'IBM Streams Internet protocol integration',
+  description = 'Internet protocol integration for IBM Streams',
   long_description = open('DESC.txt').read(),
   author = 'IBM Streams @ github.com',
   author_email = 'hegermar@de.ibm.com',
