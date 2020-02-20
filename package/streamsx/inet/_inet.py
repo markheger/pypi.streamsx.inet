@@ -8,7 +8,7 @@ import streamsx.spl.op
 import streamsx.spl.types
 from streamsx.topology.schema import CommonSchema, StreamSchema
 from streamsx.spl.types import rstring
-
+import streamsx.spl.toolkit
 from streamsx.toolkits import download_toolkit
 
 _TOOLKIT_NAME = 'com.ibm.streamsx.inet'
@@ -56,6 +56,12 @@ def download_toolkit(url=None, target_dir=None):
     return _toolkit_location
 
 
+def _add_toolkit_dependency(topo, version):
+    # IMPORTANT: Dependency of this python wrapper to a specific toolkit version
+    # This is important when toolkit is not set with streamsx.spl.toolkit.add_toolkit (selecting toolkit from remote build service)
+    streamsx.spl.toolkit.add_toolkit_dependency(topo, _TOOLKIT_NAME, version)
+
+
 def request_delete(stream, url=None, url_attribute=None, extra_header_attribute=None, ssl_accept_all_certificates=False, name=None):
     """Issues HTTP DELETE requests. For each input tuple a DELETE request is issued and the response is on the returned stream. You can specifiy the URL either dynamic (part of input stream) or static (as parameter).
 
@@ -68,7 +74,7 @@ def request_delete(stream, url=None, url_attribute=None, extra_header_attribute=
         result_http_del.print()
 
     Args:
-        stream(Stream): Stream of tuples containing the HTTP request url. Supports ``streamsx.topology.schema.StreamSchema`` (schema for a structured stream) or ``CommonSchema.String`` as input.
+        stream(streamsx.topology.topology.Stream): Stream of tuples containing the HTTP request url. Supports ``streamsx.topology.schema.StreamSchema`` (schema for a structured stream) or ``CommonSchema.String`` as input.
         url(str): String containing the URL to send HTTP requests to.
         url_attribute(str): Attribute name of the input stream containing the URL to send HTTP requests to. Use this as alternative to the 'url' parameter.
         extra_header_attribute(str): Attribute name of the input stream containing one extra header to send with the request, the attribute must contain a string in the form Header-Name: value. If the attribute value is an empty string, no additional header is send.
@@ -76,7 +82,7 @@ def request_delete(stream, url=None, url_attribute=None, extra_header_attribute=
         name(str): Sink name in the Streams context, defaults to a generated name.
 
     Returns:
-        Output Stream with schema :py:const:`~streamsx.inet.HttpResponseSchema`.
+        :py:class:`topology_ref:streamsx.topology.topology.Stream`: Output Stream with schema :py:const:`~streamsx.inet.HttpResponseSchema`.
     """
 
     if url_attribute is None and url is None:
@@ -101,6 +107,7 @@ def request_delete(stream, url=None, url_attribute=None, extra_header_attribute=
     _op.params['sslAcceptAllCertificates'] = ssl_accept_all_certificates
     if extra_header_attribute is not None:
         _op.params['extraHeaderAttribute'] = _op.attribute(stream, extra_header_attribute)
+        _add_toolkit_dependency(stream.topology, '[3.0.0,4.0.0)') # extraHeaderAttribute parameter has been introduced in v3.0
 
     return _op.outputs[0]
 
@@ -117,7 +124,7 @@ def request_get(stream, url=None, url_attribute=None, extra_header_attribute=Non
         result_http_get.print()
 
     Args:
-        stream(Stream): Stream of tuples containing the HTTP request url. Supports ``streamsx.topology.schema.StreamSchema`` (schema for a structured stream) or ``CommonSchema.String`` as input.
+        stream(streamsx.topology.topology.Stream): Stream of tuples containing the HTTP request url. Supports ``streamsx.topology.schema.StreamSchema`` (schema for a structured stream) or ``CommonSchema.String`` as input.
         url(str): String containing the URL to send HTTP requests to.
         url_attribute(str): Attribute name of the input stream containing the URL to send HTTP requests to. Use this as alternative to the 'url' parameter.
         extra_header_attribute(str): Attribute name of the input stream containing one extra header to send with the request, the attribute must contain a string in the form Header-Name: value. If the attribute value is an empty string, no additional header is send.
@@ -125,7 +132,7 @@ def request_get(stream, url=None, url_attribute=None, extra_header_attribute=Non
         name(str): Sink name in the Streams context, defaults to a generated name.
 
     Returns:
-        Output Stream with schema :py:const:`~streamsx.inet.HttpResponseSchema`.
+        :py:class:`topology_ref:streamsx.topology.topology.Stream`: Output Stream with schema :py:const:`~streamsx.inet.HttpResponseSchema`.
     """
 
     if url_attribute is None and url is None:
@@ -150,6 +157,7 @@ def request_get(stream, url=None, url_attribute=None, extra_header_attribute=Non
     _op.params['sslAcceptAllCertificates'] = ssl_accept_all_certificates
     if extra_header_attribute is not None:
         _op.params['extraHeaderAttribute'] = _op.attribute(stream, extra_header_attribute)
+        _add_toolkit_dependency(stream.topology, '[3.0.0,4.0.0)') # extraHeaderAttribute parameter has been introduced in v3.0
 
     return _op.outputs[0]
 
@@ -174,7 +182,7 @@ def request_post(stream, url=None, url_attribute=None, body_attribute=None, cont
         result_http_post.print()
 
     Args:
-        stream(Stream): Stream of tuples containing the HTTP request url. Supports ``streamsx.topology.schema.StreamSchema`` (schema for a structured stream) or ``CommonSchema.String`` as input.
+        stream(streamsx.topology.topology.Stream): Stream of tuples containing the HTTP request url. Supports ``streamsx.topology.schema.StreamSchema`` (schema for a structured stream) or ``CommonSchema.String`` as input.
         url(str): String containing the URL to send HTTP requests to.
         url_attribute(str): Attribute name of the input stream containing the URL to send HTTP requests to. Use this as alternative to the 'url' parameter.
         body_attribute(str): Request body attribute for POST method that accepts an entity.
@@ -185,7 +193,7 @@ def request_post(stream, url=None, url_attribute=None, body_attribute=None, cont
         name(str): Sink name in the Streams context, defaults to a generated name.
 
     Returns:
-        Output Stream with schema :py:const:`~streamsx.inet.HttpResponseSchema`.
+        :py:class:`topology_ref:streamsx.topology.topology.Stream`: Output Stream with schema :py:const:`~streamsx.inet.HttpResponseSchema`.
     """
 
     if url_attribute is None and url is None:
@@ -220,6 +228,7 @@ def request_post(stream, url=None, url_attribute=None, body_attribute=None, cont
     _op.params['sslAcceptAllCertificates'] = ssl_accept_all_certificates
     if extra_header_attribute is not None:
         _op.params['extraHeaderAttribute'] = _op.attribute(stream, extra_header_attribute)
+        _add_toolkit_dependency(stream.topology, '[3.0.0,4.0.0)') # extraHeaderAttribute parameter has been introduced in v3.0
 
     return _op.outputs[0]
 
@@ -236,7 +245,7 @@ def request_put(stream, url=None, url_attribute=None, body_attribute=None, conte
         result_http_put.print()
 
     Args:
-        stream(Stream): Stream of tuples containing the HTTP request url. Supports ``streamsx.topology.schema.StreamSchema`` (schema for a structured stream) or ``CommonSchema.String`` as input.
+        stream(streamsx.topology.topology.Stream): Stream of tuples containing the HTTP request url. Supports ``streamsx.topology.schema.StreamSchema`` (schema for a structured stream) or ``CommonSchema.String`` as input.
         url(str): String containing the URL to send HTTP requests to.
         url_attribute(str): Attribute name of the input stream containing the URL to send HTTP requests to. Use this as alternative to the 'url' parameter.
         body_attribute(str): Request body attribute for PUT method that accepts an entity.
@@ -247,7 +256,7 @@ def request_put(stream, url=None, url_attribute=None, body_attribute=None, conte
         name(str): Sink name in the Streams context, defaults to a generated name.
 
     Returns:
-        Output Stream with schema :py:const:`~streamsx.inet.HttpResponseSchema`.
+        :py:class:`topology_ref:streamsx.topology.topology.Stream`: Output Stream with schema :py:const:`~streamsx.inet.HttpResponseSchema`.
     """
 
     if url_attribute is None and url is None:
@@ -286,6 +295,7 @@ def request_put(stream, url=None, url_attribute=None, body_attribute=None, conte
     _op.params['sslAcceptAllCertificates'] = ssl_accept_all_certificates
     if extra_header_attribute is not None:
         _op.params['extraHeaderAttribute'] = _op.attribute(stream, extra_header_attribute)
+        _add_toolkit_dependency(stream.topology, '[3.0.0,4.0.0)') # extraHeaderAttribute parameter has been introduced in v3.0
 
     return _op.outputs[0]
 
